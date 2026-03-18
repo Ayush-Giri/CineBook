@@ -3,5 +3,5 @@ from reviews.models import Review
 
 # Register your models here.
 
-admin.site.regsiter(Review)
+admin.site.register(Review)
 
