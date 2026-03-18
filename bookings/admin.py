@@ -9,3 +9,33 @@ admin.site.register(Booking)
 
 
 # start from payments app
+
+
+# payments app
+# Payment
+
+# which booking (one-to-one)
+# amount
+# status (Pending / Success / Failed / Refunded)
+# payment method
+# transaction id
+# created at
+
+
+# reviews app
+# Review
+
+# which user
+# which movie
+# rating (1 to 5)
+# comment
+# created at
+
+# notifications app
+# Notification
+
+# which user
+# title
+# message
+# is read
+# created at
