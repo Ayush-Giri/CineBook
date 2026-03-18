@@ -11,16 +11,6 @@ admin.site.register(Booking)
 # start from payments app
 
 
-# payments app
-# Payment
-
-# which booking (one-to-one)
-# amount
-# status (Pending / Success / Failed / Refunded)
-# payment method
-# transaction id
-# created at
-
 
 # reviews app
 # Review
