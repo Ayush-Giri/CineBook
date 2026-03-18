@@ -6,3 +6,6 @@ from bookings.models import Status, BookedSeat, Booking
 admin.site.register(Status)
 admin.site.register(BookedSeat)
 admin.site.register(Booking)
+
+
+# start from payments app

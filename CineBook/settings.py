@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "users",
     # third party apps
     "rest_framework",
+    "django_lumen",
 ]
 
 MIDDLEWARE = [
