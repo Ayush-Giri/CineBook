@@ -6,7 +6,7 @@ from django.db import models
 class Genre(models.Model):
     class Meta:
         verbose_name = "Genre"
-        verbose_name_plural = "Genre's"
+        verbose_name_plural = "Genres"
     genre = models.CharField(max_length=50)
 
 
@@ -19,7 +19,7 @@ class Genre(models.Model):
 class Language(models.Model):
     class Meta:
         verbose_name = "Langauge"
-        verbose_name_plural = "Language's"
+        verbose_name_plural = "Languagedds"
     language = models.CharField(max_length=50)
 
 
@@ -39,7 +39,7 @@ class Movies(models.Model):
     release_date = models.DateField()
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    poster_image = models.ImageField(upload_to="posters")
+    poster_image = models.ImageField(upload_to="posters", null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

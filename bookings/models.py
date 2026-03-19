@@ -32,7 +32,7 @@ class Booking(models.Model):
 
 
     def __str__(self):
-        f"{self.user.username} | {self.status.status} | {self.total_price} | {self.created_at}"
+        return f"{self.user.username} | {self.status.status} | {self.total_price} | {self.created_at}"
 
 
 

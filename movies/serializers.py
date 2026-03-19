@@ -12,6 +12,7 @@ class MovieSerializer(ModelSerializer):
         model = Movies
         fields = [
             "id",
+            "title",
             "description",
             "duration_in_minutes",
             "release_date",
