@@ -13,7 +13,12 @@ class Status(models.Model):
         verbose_name = "status"
         verbose_name_plural = "statuses"
 
-    status = models.CharField(max_length=50)
+    choices = (
+        ("pending", "Pending"),
+        ("booked", "Booked")
+    )
+
+    status = models.CharField(choices=choices, max_length=50)
 
     def __str__(self):
         return f"{self.status}"

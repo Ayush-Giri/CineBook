@@ -1,6 +1,15 @@
 from rest_framework import serializers
 from bookings.models import Booking, BookedSeat
 from shows.models import Shows
+from django.contrib.auth import get_user_model
+
+
+User = get_user_model()
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"
 
 
 class ShowDetailSerializer(serializers.ModelSerializer):
@@ -15,7 +24,11 @@ class ShowDetailSerializer(serializers.ModelSerializer):
 
 
 class BookingSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(source='user.username', read_only=True)
+    """
+    as soon as data passes through serializer the foreign key fields are automatically resloved to instances
+    """
+    # username = serializers.CharField(source='user.username', read_only=True)
+    user_detail = UserDetailSerializer(source="user", read_only=True)
     show_detail = ShowDetailSerializer(source="show", read_only=True)
     status_detail = serializers.CharField(source="status.status", read_only=True)
 
@@ -23,7 +36,7 @@ class BookingSerializer(serializers.ModelSerializer):
         model = Booking
         fields = [
             'user',
-            'username',
+            'user_detail',
             'show',
             "show_detail",
             'status',
@@ -58,6 +71,27 @@ class BookingSerializer(serializers.ModelSerializer):
         """
         if Booking.objects.filter(user=data['user'], show=data['show']).count() >= 3:
             raise serializers.ValidationError("single users cannot make more than 3 bookings")
+        
+    def to_representation(self, instance):
+        data =  super().to_representation(instance)
+        data["total_price"] = f"NPR: {data['total_price']}"
+
+        if instance.status.status == "pending":
+            data["is_cancellable"] = True
+        else:
+            data["is_cancellable"] = False
+
+        """
+        context is passed into serializer we have seen that so many times and there we pass the rquest object we
+        can see for the suer
+        """
+
+        request_object = self.context.get("request") # there maybe case where no context is passed
+        if request_object:
+            if not request_object.user.is_staff:
+                data.pop("created_at", None)
+
+        return data
 
 
 

@@ -39,7 +39,7 @@ class Movies(models.Model):
     release_date = models.DateField()
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    poster_image = models.ImageField(upload_to="posters", null=True)
+    poster_image = models.ImageField(upload_to="posters", null=True, blank=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
