@@ -74,7 +74,13 @@ class BookingSerializer(serializers.ModelSerializer):
         
     def to_representation(self, instance):
         data =  super().to_representation(instance)
-        data["total_price"] = f"NPR: {data['total_price']}"
+        request_user = self.context.get("request").user.id
+        actual_user = instance.user.id
+
+        if request_user is actual_user:
+            data["total_price"] = f"NPR: {data['total_price']}"
+        else:
+            data.pop('total_price')
 
         if instance.status.status == "pending":
             data["is_cancellable"] = True
